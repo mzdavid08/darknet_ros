@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(darknet_ros)
+add_definitions(-w)
 
 include(CMakeDependentOption)
 
@@ -70,14 +71,14 @@ if(CUDNN_FOUND)
     set(ADDITIONAL_CXX_FLAGS "${ADDITIONAL_CXX_FLAGS} -DCUDNN")
 endif()
 
-execute_process (
-    COMMAND bash -c "lspci | grep NVIDIA | grep -e TU106 -e TU104 -e TU102 -e GA106 -e GA104 -e GA102"
-    OUTPUT_VARIABLE outVar
-)
-message ( STATUS " GPU (FP16): " ${outVar} )
-if(outVar AND FP16_ENABLE)
-  set(CMAKE_CUDA_ARCHITECTURES 75)
-endif()
+#execute_process (
+#    COMMAND bash -c "lspci | grep NVIDIA | grep -e TU106 -e TU104 -e TU102 -e GA106 -e GA104 -e GA102"
+#    OUTPUT_VARIABLE outVar
+#)
+#message ( STATUS " GPU (FP16): " ${outVar} )
+#if(outVar AND FP16_ENABLE)
+#  set(CMAKE_CUDA_ARCHITECTURES 75)
+#endif()
 
 if ( 70 IN_LIST CMAKE_CUDA_ARCHITECTURES OR
      72 IN_LIST CMAKE_CUDA_ARCHITECTURES OR
