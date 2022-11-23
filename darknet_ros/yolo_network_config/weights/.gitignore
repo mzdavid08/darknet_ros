@@ -1,1 +1,2 @@
 *.weights
+!yolov7-tiny.weights
