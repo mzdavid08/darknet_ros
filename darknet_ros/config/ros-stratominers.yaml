@@ -6,18 +6,18 @@ darknet_ros:
         queue_size: 1
     actions:
       camera_reading:
-        topic: /darknet_ros/check_for_objects
+        topic: /image_detection/check_for_objects
     publishers:
       object_detector:
-        topic: /darknet_ros/found_object
+        topic: /image_detection/found_object
         queue_size: 1
         latch: false
       bounding_boxes:
-        topic: /darknet_ros/bounding_boxes
+        topic: /image_detection/bounding_boxes
         queue_size: 1
         latch: false
       detection_image:
-        topic: /darknet_ros/detection_image
+        topic: /image_detection/detection_image
         queue_size: 1
         latch: true
     image_view:
