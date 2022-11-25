@@ -39,6 +39,7 @@ YoloObjectDetector::YoloObjectDetector()
   declare_parameter("image_view.enable_opencv", true);
   declare_parameter("image_view.wait_key_delay", 3);
   declare_parameter("image_view.enable_console_output", false);
+  declare_parameter("image_view.minimum_probability", 0.4);
   declare_parameter("yolo_model.detection_classes.names", std::vector<std::string>(0));
 
   declare_parameter("yolo_model.threshold.value", 0.3f);
@@ -79,6 +80,7 @@ bool YoloObjectDetector::readParameters()
   get_parameter("image_view.enable_opencv", viewImage_);
   get_parameter("image_view.wait_key_delay", waitKeyDelay_);
   get_parameter("image_view.enable_console_output", enableConsoleOutput_);
+  get_parameter("image_view.minimum_probability", minimumProbability_);
 
   get_parameter("yolo_model.window_name", windowName_);
 
@@ -709,7 +711,11 @@ void *YoloObjectDetector::publishInThread()
           boundingBox.ymin = ymin;
           boundingBox.xmax = xmax;
           boundingBox.ymax = ymax;
-          boundingBoxesResults_.bounding_boxes.push_back(boundingBox);
+
+          // Only publish if probability great enough
+          if (boundingBox.probability >= minimumProbability_) {
+            boundingBoxesResults_.bounding_boxes.push_back(boundingBox);
+          }
         }
       }
     }

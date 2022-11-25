@@ -229,6 +229,7 @@ class YoloObjectDetector : public rclcpp::Node
   RosBox_ *roiBoxes_;
   bool viewImage_;
   bool enableConsoleOutput_;
+  float minimumProbability_;
   int waitKeyDelay_;
   int fullScreen_;
   char *demoPrefix_;
